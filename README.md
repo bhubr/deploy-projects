@@ -50,7 +50,7 @@ machine virtuelle, *private* pour indiquer que c'est un service qui nous est ré
 
 ## Et pour nos projets ?
 
-On a acheté un domaine pour la Wild de Toulouse : `http://wild31.com`, sans hébergement.
+On a acheté un domaine pour la Wild de Toulouse : [wild31.com](http://wild31.com), sans hébergement.
 
 On aurait plusieurs solutions pour l'hébergement.
 
