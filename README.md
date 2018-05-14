@@ -67,7 +67,7 @@ le domaine à l'hébergement.
 
 Voici une petite capture de mon espace client chez OVH.
 
-![Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/espace-client-ovh-zone-dns.png)
+![Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/img/espace-client-ovh-zone-dns.png)
 
 J'ai une liste de domaines que je loue chez eux (barre latérale, à gauche). Dans l'affichage principale,
 j'ai la configuration du domaine wild31.com, et particulièrement, la **Zone DNS**.
@@ -85,4 +85,13 @@ OVH.
 Je vais lui associer une autre adresse IP, qui est celle de mon serveur. Je clique donc sur l'engrenage de la ligne
 dont le type est `A` :
 
-![Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/espace-client-ovh-zone-dns.png)
+![Modifier entrée DNS](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-modifier.png)
+
+Je choisis "Modifier l'entrée", ce qui ouvre une fenêtre "modale", avec un formulaire :
+
+![Modifier adresse IP cible](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-ip.png)
+
+Dans le formulaire, je remplace la valeur courante du champ cible par l'adresse IP de mon serveur.
+Dans mon cas, mon serveur s'est fait attribuer l'adresse 5.39.82.119, je mets donc cette valeur comme cible, puis je valide. Un dernier écran me confirme la prise en compte des modifications :
+
+![Valider modification entrée](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-valider.png)
