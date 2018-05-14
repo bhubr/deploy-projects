@@ -50,7 +50,7 @@ machine virtuelle, *private* pour indiquer que c'est un service qui nous est ré
 
 ## Et pour nos projets ?
 
-On a acheté un domaine pour la Wild de Toulouse : `http://wild31.com`, sans hébergement.
+On a acheté un domaine pour la Wild de Toulouse : [wild31.com](http://wild31.com), sans hébergement.
 
 On aurait plusieurs solutions pour l'hébergement.
 
@@ -62,4 +62,36 @@ Il est suffisamment puissant (a priori) pour pouvoir "encaisser" la charge de 3 
 
 ## Configuration du domaine
 
+> La première étape est de configurer le domaine qu'on vient de louer. Il faut lier
+le domaine à l'hébergement.
+
 Voici une petite capture de mon espace client chez OVH.
+
+![Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/img/espace-client-ovh-zone-dns.png)
+
+J'ai une liste de domaines que je loue chez eux (barre latérale, à gauche). Dans l'affichage principale,
+j'ai la configuration du domaine wild31.com, et particulièrement, la **Zone DNS**.
+
+Le DNS ou *Domain Name System*, pour faire court, c'est ce qui permet de faire le lien entre:
+* Le nom d'un serveur, comme www.google.fr, qui est lisible et compréhensible par un être humain
+* L'adresse IP du serveur, composée de 4 nombres, par exemple 216.58.209.227
+
+Dans l'onglet "Zone DNS" montré ci-dessus, il y a une liste d'entrées, chacune ayant 4 colonnes : Domaine, TTL, Type, Cible.
+
+Ce qui nous intéresse est l'entrée dont le domaine est `wild31.com` et dont le type est `A`.
+L'adresse par défaut qui lui est associée est 213.186.33.5, qui est un serveur chez
+OVH.
+
+Je vais lui associer une autre adresse IP, qui est celle de mon serveur. Je clique donc sur l'engrenage de la ligne
+dont le type est `A` :
+
+![Modifier entrée DNS](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-modifier.png)
+
+Je choisis "Modifier l'entrée", ce qui ouvre une fenêtre "modale", avec un formulaire :
+
+![Modifier adresse IP cible](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-ip.png)
+
+Dans le formulaire, je remplace la valeur courante du champ cible par l'adresse IP de mon serveur.
+Dans mon cas, mon serveur s'est fait attribuer l'adresse 5.39.82.119, je mets donc cette valeur comme cible, puis je valide. Un dernier écran me confirme la prise en compte des modifications :
+
+![Valider modification entrée](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-valider.png)
