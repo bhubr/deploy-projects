@@ -63,3 +63,5 @@ Il est suffisamment puissant (a priori) pour pouvoir "encaisser" la charge de 3 
 ## Configuration du domaine
 
 Voici une petite capture de mon espace client chez OVH.
+
+[!Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/espace-client-ovh-zone-dns.png)
