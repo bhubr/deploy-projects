@@ -1,5 +1,61 @@
 # Mise en ligne d'un projet web
 
+## Déploiement en local
+
+Avant de mettre en ligne réellement sur un projet, on va faire un exercice : on va se préparer,
+en le déployant localement.
+
+Au niveau des connaissances, il y a quelques pré-requis, mais ne t'en fais pas,
+une courte explication de chacun de ces points suivra :
+* Adresse IP
+* Traduction du nom d'hôte dans une URL en adresse IP
+* DNS ou Domain Name System
+* Fichier hosts pour adresses IP locales
+
+### Adresse IP
+
+Chaque ordinateur connecté sur un réseau a une adresse IP (IP pour Internet Protocol).
+Une adresse IP est composée de 4 nombres, séparés par des points. Exemples :
+* 192.168.1.1
+* 10.0.0.33
+* 77.136.57.210
+
+La valeur de chacun des nombres peut être comprise entre 0 et 255 (donc 256 valeurs possibles).
+Je t'épargne le calcul, mais le nombre de combinaisons possibles pour 4 nombres pouvant prendre
+chacun 256 valeurs, est 4 294 967 296 (ou : "4 milliards et des brouettes").
+
+Donc théoriquement, on pourrait avoir 4 milliards d'ordinateurs connectés en même temps sur Internet.
+Autant cela semblait suffisant aux débuts de l'Internet (années 70), autant ça devient "juste"
+avec la multiplication des smartphones et autres objets connectés. Les adresses IP à 4 chiffres
+sont appelées adresses IPv4, car elles correspondent à la version 4 du protocole IP (sur lequel
+s'appuient tous les autres protocoles comme FTP, HTTP, etc.).
+
+En prévision de la prochaine [pénurie d'adresses IP](https://fr.wikipedia.org/wiki/%C3%89puisement_des_adresses_IPv4),
+des travaux ont commencé depuis longtemps sur son successeur, IPv6, qui permet d'avoir
+un nombre d'adresses bien supérieur.
+
+Mais pour l'instant, les adresses IPv4 sont encore utilisées, et la transition de IPv4 à IPv6 se fera progressivement.
+
+## Plusieurs adresses IP
+
+J'ai parlé précédemment d'*une* adresse IP par ordinateur. Les choses sont un peu plus complexes
+que ça en réalité.
+
+Par exemple, quand tu es chez toi - ou dans une école, une entreprise, ton ordinateur n'est pas
+*directement* connecté à Internet, et ne dispose pas lui-même d'une adresse IP "publique" sur
+Internet. La connexion passe en effet par une "box" qui fait office de "routeur"
+(équipement qui sert de relais entre deux réseaux).
+
+![Réseau local et Internet](https://github.com/bhubr/deploy-projects/raw/master/img/reseau-local-et-internet.png)
+
+La box est connectée à deux réseaux, et a une adresse IP pour chaque :
+* à Internet directement, via l'ADSL ou la fibre : elle obtient son adresse IP de la part
+de ton fournisseur d'accès.
+* au réseau local : c'est elle qui attribue les adresses IP des ordinateurs, tablettes, etc.
+connectés localement.
+
+
+
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
 - un nom de domaine, comme `mondomaine.com`
