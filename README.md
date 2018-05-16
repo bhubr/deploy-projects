@@ -54,7 +54,35 @@ de ton fournisseur d'accès.
 * au réseau local : c'est elle qui attribue les adresses IP des ordinateurs, tablettes, etc.
 connectés localement.
 
+Quant à ton ordinateur... Combien d'adresses IP a-t-il ? Une seule, pourrait-on penser...
+Eh bien, pour les ordinateurs récents, non ! Sous Linux, tu peux taper la commande `ifconfig` dans
+le terminal, pour voir ta (ou tes) interfaces réseau. Tu dois voir quelque chose comme ceci :
 
+![ifconfig dans le terminal](https://github.com/bhubr/deploy-projects/raw/master/img/terminal-ifconfig.png)
+
+Alors, quand on parle d'interfaces réseau, il s'agit :
+* des périphériques physiques de l'ordinateur, intégrés sur la carte mère de l'ordinateur
+dans le cas d'un portable :
+    * interface filaire (Ethernet est la norme la plus répandue pour ce type d'interface). Sur la capture,
+    c'est la 1ère de la liste : dans `enp0s25`, le `en` est l'abréviation de EtherNet.
+    * interface wifi, en 3ème dans la liste : dans `wlp3s0`, le `wl` est l'abréviation de WireLess.
+* d'une interface appelée "boucle locale" ou *loopback*. Elle est présente sur tous les ordinateurs,
+qu'on soit sous Linux, Windows ou OS X. Elle ne correspond pas à une carte réseau physique. C'est une interface "virtuelle"
+qui permet de faire des connections, de ton ordi... à lui-même. C'est très pratique quand on veut
+développer des applications web localement, et sans le savoir, tu l'utilises depuis le projet 2 :
+que ce soit quand on accède à un serveur Node.js localement via [http://localhost:3000](http://localhost:3000),
+ou quand on accède à [phpMyAdmin en local](http://localhost/phpmyadmin), on passe par cette interface.
+
+Chaque interface a une adresse IP dédiée. Dans ma capture, les adresses IP sont encadrées en orange.
+Les adresses IPv4 sont précédées de `inet`, les IPv6 de `inet6`.
+Il n'y en a que deux :
+* l'interface *loopback* est *toujours* connectée, et se voit *toujours* attribuer l'adresse IPv4
+127.0.0.1, de sorte qu'entrer [http://localhost](http://localhost) ou [http://127.0.0.1](http://127.0.0.1)
+dans la barre d'adresse de ton navigateur mène au même endroit !
+* l'interface wifi est connectée dans mon cas. L'adresse IP qui lui a été attribuée par le routeur de l'école
+est 10.0.0.33 (IPv4).
+Par contre, bien que mon ordi ait une interface filaire, aucun câble n'est branché sur le port Ethernet.
+L'interface n'est donc pas connectée, et ne peut pas se voir attribuer une adresse IP.
 
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
