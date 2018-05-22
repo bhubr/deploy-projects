@@ -9,8 +9,8 @@ Au niveau des connaissances, il y a quelques pré-requis, mais ne t'en fais pas,
 une courte explication de chacun de ces points suivra :
 * Adresse IP
 * Traduction du nom d'hôte dans une URL en adresse IP
+* Fichier `hosts`
 * DNS ou Domain Name System
-* Fichier hosts pour adresses IP locales
 
 ### Adresse IP
 
@@ -36,7 +36,7 @@ un nombre d'adresses bien supérieur.
 
 Mais pour l'instant, les adresses IPv4 sont encore utilisées, et la transition de IPv4 à IPv6 se fera progressivement.
 
-## Plusieurs adresses IP
+### Plusieurs adresses IP
 
 J'ai parlé précédemment d'*une* adresse IP par ordinateur. Les choses sont un peu plus complexes
 que ça en réalité.
@@ -84,6 +84,33 @@ est 10.0.0.33 (IPv4).
 Par contre, bien que mon ordi ait une interface filaire, aucun câble n'est branché sur le port Ethernet.
 L'interface n'est donc pas connectée, et ne peut pas se voir attribuer une adresse IP.
 
+### Fichier `hosts`
+
+Je viens de mentionner le fait que l'IP 127.0.0.1 est associée au nom d'hôte `localhost`.
+
+Comment se fait la correspondance entre les noms d'hôtes et les adresses IP ? De deux façons
+(complémentaires, l'une n'empêchant pas l'autre):
+* Via les DNS qu'on verra par la suite
+* Via le fichier `hosts` présent sur chaque ordi moderne, quel que soit le système. Seule son emplacement varie :
+    * `/etc/hosts` sur les systèmes Unix, donc sous Linux et OS X
+    * `c:\windows\system32\drivers\etc\hosts` sous Windows
+
+Commence par l'afficher, en entrant `cat /etc/hosts` dans le terminal. Tu obtiens quelque
+chose de semblable à ceci :
+
+    127.0.0.1	localhost
+    127.0.1.1	wilder-ThinkPad-T420
+
+    # The following lines are desirable for IPv6 capable hosts
+    ::1     ip6-localhost ip6-loopback
+    fe00::0 ip6-localnet
+    ff00::0 ip6-mcastprefix
+    ff02::1 ip6-allnodes
+    ff02::2 ip6-allrouters
+
+On ne va pas s'occuper des lignes sous le commentaire qui mentionne IPv6. Il nous reste
+donc deux lignes : chacune .
+
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
 - un nom de domaine, comme `mondomaine.com`
@@ -107,7 +134,10 @@ ensemble, mais il est possible d'acheter l'un ou l'autre séparément.
 
 Les domaines se "louent" généralement pour une durée d'un an, reconductible à volonté.
 Un domaine peut coûter de 3€ par an à 40€ par an, suivant l'extension (.com, .net, .tech, .io),
-voire bien plus pour certains noms de domaine prisés.
+voire bien plus pour certains noms de domaine prisés... Pour le fun et pour te donner une
+idée des prix que ça peut atteindre (capture d'une page de commande de domaine chez OVH) :
+
+![prix noms de domaine](https://github.com/bhubr/deploy-projects/raw/master/img/prix-noms-de-domaine.png.png)
 
 ## Hébergements
 
