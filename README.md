@@ -109,7 +109,55 @@ chose de semblable à ceci :
     ff02::2 ip6-allrouters
 
 On ne va pas s'occuper des lignes sous le commentaire qui mentionne IPv6. Il nous reste
-donc deux lignes : chacune .
+donc les deux premières lignes : chacune contient une adresse IP, suivie d'un nom d'hôte.
+
+**C'est l'intérêt du fichier `hosts`: associer un ou des noms à une adresse IP**.
+Tu vas modifier ce fichier (`sudo nano /etc/hosts`), pour associer un autre nom à ta machine,
+qui soit plus proche d'un "vrai" nom de domaine. On ne va modifier que la première ligne.
+
+Avant ça, il faut décider d'un nom pour notre machine, qui ressemble à un nom de domaine
+réel, à la différence qu'on ne va pas utiliser une des "extensions" classiques comme .com,
+.net, .fr, etc. mais une extension qui n'existe pas (si tu veux savoir ceux qui existent
+réellement, consulte [cette page](https://fr.wikipedia.org/wiki/Liste_des_domaines_Internet_de_premier_niveau)).
+
+Comme on est à la Wild Code School, on va utiliser les initiales du nom de l'école
+comme extension, ce qui nous donne .wcs. Pour le nom du domaine, je te propose d'utiliser
+ton prénom et nom, tout en minuscules, sans accents, ce qui pour moi va donner : `benoithubert.wcs`.
+
+J'ajoute ça à la première ligne du fichier, qui devient donc :
+
+    127.0.0.1 localhost benoithubert.wcs
+
+Puis je sauvegarde et quitte (Ctrl+O puis Ctrl+X). Pour vérifier que ça va marcher, je vais
+utiliser une commande bien connue des administrateurs système et réseau :
+[ping](https://fr.wikipedia.org/wiki/Ping_(logiciel)). C'est une commande qui permet
+de vérifier si une machine est accessible via le réseau. Tu peux lui donner un nom de
+machine, ou une adresse IP.
+
+Je teste d'abord `ping localhost` :
+
+    wilder@wilder-ThinkPad-T420:[~/Dev/deploy-projects] (deploy-local *%=) $ ping localhost
+    PING localhost (127.0.0.1) 56(84) bytes of data.
+    64 bytes from localhost (127.0.0.1): icmp_seq=1 ttl=64 time=0.083 ms
+    64 bytes from localhost (127.0.0.1): icmp_seq=2 ttl=64 time=0.077 ms
+    ...
+
+Après avoir saisi la commande, des lignes s'affichent à intervalles réguliers, indiquant
+entre autres l'adresse IP, et le temps de réponse (tout à la fin, en millisecondes).
+
+Je teste `ping benoithubert.wcs` :
+
+    wilder@wilder-ThinkPad-T420:[~/Dev/deploy-projects] (deploy-local *%=) $ ping benoithubert.wcs
+    PING localhost (127.0.0.1) 56(84) bytes of data.
+    64 bytes from localhost (127.0.0.1): icmp_seq=1 ttl=64 time=0.088 ms
+    64 bytes from localhost (127.0.0.1): icmp_seq=2 ttl=64 time=0.061 ms
+
+Visiblement, ça marche !
+
+> Par curiosité, tu peux essayer `ping google.fr`, `ping wildcodeschool.fr`, etc.
+Cela te donnera notamment les adresses IP de ces machines.
+
+
 
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
