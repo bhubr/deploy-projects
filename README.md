@@ -98,8 +98,8 @@ Comment se fait la correspondance entre les noms d'hôtes et les adresses IP ? D
 Commence par l'afficher, en entrant `cat /etc/hosts` dans le terminal. Tu obtiens quelque
 chose de semblable à ceci :
 
-    127.0.0.1	localhost
-    127.0.1.1	wilder-ThinkPad-T420
+    127.0.0.1   localhost
+    127.0.1.1   wilder-ThinkPad-T420
 
     # The following lines are desirable for IPv6 capable hosts
     ::1     ip6-localhost ip6-loopback
@@ -219,6 +219,139 @@ nginx :
 Si tu recharges la page web sur localhost, ça doit marcher à nouveau.
 
 #### Configuration de nginx
+
+Je vais essayer de ne pas te noyer ici ! La configuration d'un serveur web est en
+effet assez complexe. Mais par chance, lors de l'installation, une configuration
+de base existe déjà.
+
+Comme ce serait le cas pour Apache, la configuration de nginx se fait à deux endroits :
+* Un fichier de configuration global : `/etc/nginx/nginx.conf`.
+* Un fichier de configuration par "virtual host"...
+
+Wait! "Virtual host" ? What the heck is that ? Il faut savoir qu'une même machine
+peut servir de serveur web pour plusieurs sites ! Et on n'a pas besoin, dans ce cas,
+d'installer plusieurs logiciels serveurs. D'ailleurs, on ne le pourrait pas,
+car le serveur web doit par défaut utiliser le port 80, et deux programmes ne peuvent
+pas accéder au même port.
+
+On peut donc configurer nginx pour qu'il soit capable de gérer plusieurs noms de domaines.
+Pour chaque nom de domaine, il y a une configuration particulière. C'est ça un "virtual host".
+On n'a qu'une machine réelle, mais une configuration qui expose plusieurs domaines au monde extérieur.
+
+On va d'abord ouvrir `/etc/nginx/nginx.conf`. Je te conseille d'utiliser un plugin
+permettant d'avoir le "syntax highlighting" (coloration syntaxique) pour ton éditeur.
+Il en existe pour [Atom](https://atom.io/packages/language-nginx), [Sublime](https://github.com/brandonwamboldt/sublime-nginx),
+[VSCode](https://github.com/brandonwamboldt/sublime-nginx), entre autres.
+
+Alors, accroche ta ceinture, et prends deux aspirines, car ça risque de piquer un peu...
+
+Voilà à quoi ressemble la bête :
+
+    user www-data;
+    worker_processes auto;
+    pid /run/nginx.pid;
+
+    events {
+        worker_connections 768;
+        # multi_accept on;
+    }
+
+    http {
+
+        ##
+        # Basic Settings
+        ##
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        # server_tokens off;
+
+        # server_names_hash_bucket_size 64;
+        # server_name_in_redirect off;
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        ##
+        # SSL Settings
+        ##
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+        ssl_prefer_server_ciphers on;
+
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+        gzip_disable "msie6";
+
+        # gzip_vary on;
+        # gzip_proxied any;
+        # gzip_comp_level 6;
+        # gzip_buffers 16 8k;
+        # gzip_http_version 1.1;
+        # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+        ##
+        # Virtual Host Configs
+        ##
+
+        include /etc/nginx/conf.d/*.conf;
+        include /etc/nginx/sites-enabled/*;
+    }
+
+
+    #mail {
+    #   # See sample authentication script at:
+    #   # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+    #
+    #   # auth_http localhost/auth.php;
+    #   # pop3_capabilities "TOP" "USER";
+    #   # imap_capabilities "IMAP4rev1" "UIDPLUS";
+    #
+    #   server {
+    #       listen     localhost:110;
+    #       protocol   pop3;
+    #       proxy      on;
+    #   }
+    #
+    #   server {
+    #       listen     localhost:143;
+    #       protocol   imap;
+    #       proxy      on;
+    #   }
+    #}
+
+Bon, je te rassure, tu ne vas pas avoir besoin de modifier quoi que ce soit dans ce fichier !
+Remarque juste qu'il y a des "sections" commençant par un mot-clé suivi d'accolades.
+
+Par exemple, tout ce qui se trouve dans les accolades suivant `http`, est une configuration
+globale, commune à tous les virtual hosts.
+
+Ce qui nous intéresse particulièrement ici, ce sont deux lignes consécutives à la fin
+du bloc `http` :
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+
+Ce sont des "includes". C'est un terme commun en informatique, pour exprimer qu'un
+fichier peut en inclure un autre. C'est utilisé aussi bien pour des fichiers de configuration
+que pour des programmes (PHP par exemple dispose d'une instruction `include` pour
+appeler un autre fichier PHP depuis un programme).
+
+Ici, ces lignes permettent d'inclure les fichiers de configuration des virtual hosts.
+Il y en a un seul par défaut quand on vient d'installer nginx : `/etc/nginx/sites-enabled/default`.
 
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
