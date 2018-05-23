@@ -157,7 +157,68 @@ Visiblement, ça marche !
 > Par curiosité, tu peux essayer `ping google.fr`, `ping wildcodeschool.fr`, etc.
 Cela te donnera notamment les adresses IP de ces machines.
 
+Il faut bien garder à l'esprit que ce nom de domaine qu'on a ajouté est factice.
+De plus, le fait qu'on l'ait ajouté dans *notre* fichier `/etc/hosts` sur *notre*
+machine signifie que d'autres machines n'auront aucune connaissance de cette correspondance
+entre notre nom de domaine fictif et l'adresse de notre machine. Ce n'est pas grave,
+c'est amplement suffisant pour des tests.
 
+### Le DNS ou Domain Name System
+
+Juste avant de passer à la suite, un petit mot sur le DNS : c'est un service offert
+par de nombreux serveurs sur le réseau Internet, et qui permet d'établir une correspondance
+entre les noms de machines et les adresses IP.
+
+Quand tu accèdes à un site via ton navigateur, il se passe des choses en arrière-plan,
+sans que ce soit visible pour toi :
+* Le navigateur interroge le serveur DNS de ton fournisseur d'accès Internet, pour
+obtenir l'IP du site que tu veux consulter.
+* Le serveur DNS lui renvoie l'adresse IP correspondante.
+* Le navigateur utilise l'adresse IP pour établir une connexion avec le serveur.
+
+Pas besoin d'en rajouter pour l'instant, on va passer à la configuration d'un serveur
+web local !
+
+### Serveur web local
+
+#### Vérification du serveur installé
+
+Tu as peut-être déjà un serveur web sur ta machine ! Soit qu'il soit installé
+par défaut avec ton système d'exploitation, soit que tu l'aies installé manuellement.
+
+Pour le vérifier, va sur [http://localhost](http://localhost). Si ça répond, c'est
+que tu as bien un serveur web installé. Pour vérifier de quel serveur il s'agit,
+essaie une adresse "bidon", au hasard:
+[http://localhost/winteriscoming](http://localhost/winteriscoming).
+
+Tu vas obtenir une erreur 404, et par défaut, le serveur doit te donner une page ressemblant
+à ceci :
+
+![Apache - Not Found](https://github.com/bhubr/deploy-projects/raw/master/img/apache-not-found.png)
+
+Tout en bas, le serveur t'indique qui il est - ce qui, au passage, sur un serveur "réel", exposé sur Internet,
+n'est pas une très bonne idée : cela indique en effet quel logiciel serveur est utilisé
+(ici, Apache), sa version (2.4.18), et l'OS sur lequel il tourne (ici Linux Ubuntu)...
+Un individu mal intentionné pourrait s'en servir pour exploiter une vulnérabilité du logiciel serveur,
+pour peu que tu aies une version un peu ancienne...
+
+Comme tu as probablement Apache installé, et qu'on va utiliser son concurrent [nginx](https://fr.wikipedia.org/wiki/Nginx),
+il faut d'abord arrêter Apache, par cette commande :
+
+    sudo service apache2 stop
+
+Si tu recharges ta page web restée sur localhost, ça ne doit plus marcher !
+
+#### Installation de nginx
+
+Comme d'habitude sous Ubuntu, un `apt-get install` va nous permettre d'installer
+nginx :
+
+    sudo apt-get install nginx
+
+Si tu recharges la page web sur localhost, ça doit marcher à nouveau.
+
+#### Configuration de nginx
 
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
