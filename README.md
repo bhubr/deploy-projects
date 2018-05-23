@@ -245,7 +245,7 @@ permettant d'avoir le "syntax highlighting" (coloration syntaxique) pour ton éd
 Il en existe pour [Atom](https://atom.io/packages/language-nginx), [Sublime](https://github.com/brandonwamboldt/sublime-nginx),
 [VSCode](https://github.com/brandonwamboldt/sublime-nginx), entre autres.
 
-Alors, accroche ta ceinture, et prends deux aspirines, car ça risque de piquer un peu...
+Alors, attache ta ceinture, et prends deux aspirines, car ça risque de piquer un peu...
 
 Voilà à quoi ressemble la bête :
 
@@ -450,10 +450,42 @@ Pour tester, j'y colle un contenu HTML minimal :
         <title>Test virtual host</title>
       </head>
       <body>
-      <h1>Welcome to benoithubert.wcs</h1>
+        <h1>Welcome to benoithubert.wcs</h1>
+        <p>It works! Champagne!</p>
       </body>
     </html>
 
+##### Redémarrage du serveur
+
+On n'a plus qu'à tester notre config, en redémarrant nginx :
+
+    sudo service nginx restart
+
+Verdict, si tu as scrupuleusement suivi les étapes, tu dois être récompensé
+par cette flamboyante page d'accueil :
+
+
+![Nginx - It works](https://github.com/bhubr/deploy-projects/raw/master/img/nginx-vhost-it-works.png)
+
+##### Note annexe !!
+
+[... CETTE SECTION S'AUTO DETRUIRA QUAND J'AURAI TERMINE ...]
+
+Dans cette partie, je t'ai fait désactiver Apache pour utiliser nginx. Mais cela
+peut te rendre phpMyAdmin inaccessible, car on n'a pas encore configuré nginx
+pour fonctionner avec PHP.
+
+Si tu as besoin de phpMyAdmin, tu peux désactiver nginx et réactiver Apache comme ceci :
+
+    sudo service nginx stop
+    sudo service apache2 start
+
+Et si tu veux faire l'opération inverse pour accéder de nouveau à ton domaine virtuel :
+
+    sudo service apache2 stop
+    sudo service nginx start
+
+Voilà, c'est juste en attendant d'ajouter comment configurer nginx pour PHP !
 
 [... A COMPLETER ...]
 
