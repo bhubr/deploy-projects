@@ -351,7 +351,36 @@ que pour des programmes (PHP par exemple dispose d'une instruction `include` pou
 appeler un autre fichier PHP depuis un programme).
 
 Ici, ces lignes permettent d'inclure les fichiers de configuration des virtual hosts.
-Il y en a un seul par défaut quand on vient d'installer nginx : `/etc/nginx/sites-enabled/default`.
+La ligne `include /etc/nginx/sites-enabled/*;` inclut tous les fichiers présents dans
+le répertoire `/etc/nginx/sites-enabled/`. Regardons d'ailleurs ce qu'il contient :
+
+    ls -l /etc/nginx/sites-enabled
+
+Le flag `-l` permet d'avoir une liste détaillée des fichiers. On obtient le résultat suivant :
+
+    lrwxrwxrwx 1 root root 34 mars  27 10:06 default -> /etc/nginx/sites-available/default
+
+Il y a un seul fichier virtual host par défaut quand on vient d'installer nginx : `default`.
+Par ailleurs, dans le terminal Linux, son nom s'affiche en bleu ciel. Cela, ajouté à la lettre `l`
+au tout début de la ligne, indique qu'il s'agit d'un *lien symbolique*. Encore un terme barbare !
+En résumé, c'est juste un "raccourci" vers un autre fichier. Le lien symbolique ne prend
+pas de place sur le disque. Par contre, si on le lit ou si on écrit dessus, le "vrai"
+fichier, celui vers lequel il pointe, est lu ou modifié.
+
+Ici, on nous indique que le fichier pointé par `default` est `/etc/nginx/sites-available/default`.
+Il est pratique d'avoir deux répertoires distincts : `sites-available` et `sites-enabled`.
+On peut ainsi créer un fichier de configuration pour un virtual host dans `sites-available`,
+et une fois qu'il est prêt, créer un lien dans `sites-enabled`. Ensuite, il faut redémarrer le serveur.
+
+Si jamais on veut par la suite désactiver ce virtual host, on n'a pas besoin de supprimer
+son fichier de configuration dans `sites-available`. Au lieu de cela, on peut juste
+supprimer le lien symbolique correspondant dans `sites-enabled`, puis redémarrer le serveur.
+
+
+[... A COMPLETER ...]
+
+
+## Déploiement réel
 
 ## Nom de domaine et hébergement
 Pour mettre en ligne un projet web, on a besoin de deux choses :
@@ -451,3 +480,6 @@ Dans le formulaire, je remplace la valeur courante du champ cible par l'adresse 
 Dans mon cas, mon serveur s'est fait attribuer l'adresse 5.39.82.119, je mets donc cette valeur comme cible, puis je valide. Un dernier écran me confirme la prise en compte des modifications :
 
 ![Valider modification entrée](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-valider.png)
+
+
+[... A COMPLETER ...]
