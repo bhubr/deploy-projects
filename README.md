@@ -220,6 +220,8 @@ Si tu recharges la page web sur localhost, ça doit marcher à nouveau.
 
 #### Configuration de nginx
 
+##### Configuration globale et virtual hosts
+
 Je vais essayer de ne pas te noyer ici ! La configuration d'un serveur web est en
 effet assez complexe. Mais par chance, lors de l'installation, une configuration
 de base existe déjà.
@@ -375,6 +377,82 @@ et une fois qu'il est prêt, créer un lien dans `sites-enabled`. Ensuite, il fa
 Si jamais on veut par la suite désactiver ce virtual host, on n'a pas besoin de supprimer
 son fichier de configuration dans `sites-available`. Au lieu de cela, on peut juste
 supprimer le lien symbolique correspondant dans `sites-enabled`, puis redémarrer le serveur.
+
+##### Ajout d'un virtual host
+
+On va maintenant créer un fichier virtual host pour notre domaine fictif `prenomnom.wcs`.
+
+On copie d'abord le fichier `default` dans un fichier portant le nom du domaine
+(ce n'est pas obligatoire mais c'est une convention bien pratique) :
+
+    sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/benoithubert.wcs
+
+Puis on l'édite. Autant le faire avec notre éditeur préféré. Ci-dessus j'utilise Atom,
+`code` pour Visual Studio ne marchant pas avec `sudo`. Mais j'aurais pu utiliser `subl` pour Sublime Text.
+
+    sudo atom /etc/nginx/sites-available/benoithubert.wcs
+
+En fait on a juste besoin du bloc qui se trouve entièrement commenté
+en fin de fichier, et précédé de la mention :
+
+    # Virtual Host configuration for example.com
+
+On *supprime* tout ce qui se trouve *au-dessus* de cette ligne, et on décommente tout ce qui se trouve à partir du bloc `server` *sous* cette ligne. Puis on remplace toutes les mentions de `example.com` par notre
+nom de domaine. J'obtiens pour ma part ceci :
+
+    # Virtual Host configuration for benoithubert.wcs
+
+    server {
+    	listen 80;
+    	listen [::]:80;
+
+    	server_name benoithubert.wcs;
+
+    	root /var/www/benoithubert.wcs;
+    	index index.html;
+
+    	location / {
+    		try_files $uri $uri/ =404;
+    	}
+    }
+
+##### Création du lien symbolique
+
+Une fois le fichier sauvegardé, je crée un lien symbolique de ce fichier vers
+son équivalent dans `sites-enabled` :
+
+    sudo ln -s /etc/nginx/sites-available/benoithubert.wcs /etc/nginx/sites-enabled/benoithubert.wcs
+
+##### Création du répertoire de documents et d'un index
+
+Quelques explications tout de même, et quelques opérations à effectuer pour en finir
+avec cette étape...
+
+La ligne `server_name` indique que ce virtual host ne traitera *que* les requêtes
+envoyées sur l'adresse `benoithubert.wcs`.
+
+La ligne `root` indique où se trouvent les fichiers correspondants à ce virtual host.
+Il faut créer le répertoire correspondant :
+
+    sudo mkdir /var/www/benoithubert.wcs
+
+La ligne `index` indique le nom du fichier envoyé au client par défaut : par convention,
+c'est `index.html`. On va garder cette convention, et créer le fichier.
+
+    sudo atom /var/www/benoithubert.wcs/index.html
+
+Pour tester, j'y colle un contenu HTML minimal :
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <title>Test virtual host</title>
+      </head>
+      <body>
+      <h1>Welcome to benoithubert.wcs</h1>
+      </body>
+    </html>
 
 
 [... A COMPLETER ...]
