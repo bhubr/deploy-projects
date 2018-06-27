@@ -518,7 +518,7 @@ Un domaine peut coûter de 3€ par an à 40€ par an, suivant l'extension (.co
 voire bien plus pour certains noms de domaine prisés... Pour le fun et pour te donner une
 idée des prix que ça peut atteindre (capture d'une page de commande de domaine chez OVH) :
 
-![prix noms de domaine](https://github.com/bhubr/deploy-projects/raw/master/img/prix-noms-de-domaine.png.png)
+![prix noms de domaine](https://github.com/bhubr/deploy-projects/raw/master/img/prix-noms-de-domaine.png)
 
 ## Hébergements
 
