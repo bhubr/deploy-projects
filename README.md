@@ -91,7 +91,7 @@ Je viens de mentionner le fait que l'IP 127.0.0.1 est associée au nom d'hôte `
 Comment se fait la correspondance entre les noms d'hôtes et les adresses IP ? De deux façons
 (complémentaires, l'une n'empêchant pas l'autre):
 * Via les DNS qu'on verra par la suite
-* Via le fichier `hosts` présent sur chaque ordi moderne, quel que soit le système. Seule son emplacement varie :
+* Via le fichier `hosts` présent sur chaque ordi moderne, quel que soit le système. Seul son emplacement varie :
     * `/etc/hosts` sur les systèmes Unix, donc sous Linux et OS X
     * `c:\windows\system32\drivers\etc\hosts` sous Windows
 
