@@ -22,7 +22,7 @@ Il faut savoir que les protocoles réseau sur lesquels se base Internet sont org
 
 Les protocoles tels qu'HTTP, FTP, IMAP, etc. reposent sur deux autres protocoles : TCP et IP (auquel on fait souvent référence par TCP/IP). IP signifie *Internet Protocol*. Il s'occupe notamment du routage des informations entre deux points du réseau. TCP signifie *Transmission Control Protocol* et s'occupe du transport des données, intégrant des mécanismes de contrôle et de correction d'erreurs.
 
-Sur Internet, chaque ordinateur connecté au réseau dispose d'une adresse IP :
+Sur Internet, chaque ordinateur connecté au réseau dispose d'une adresse IP, composée de 4 nombres (de 0 à 255) séparés par des points :
 
 ![IP](https://raw.githubusercontent.com/bhubr/deploy-projects/master/img/internet-protocol.svg)
 
@@ -89,6 +89,45 @@ Une vidéo pour cette partie :
 
 https://youtube.com
 
+Il existe également la possibilité d'obtenir des domaines gratuits sur http://www.dot.tk/fr/index.html?lang=fr, avec des extensions exotiques comme `.tk`, `.ga`, `.ml`. **À ne pas utiliser pour de vrais sites**, car ces extensions gratuites attirent des créateurs de sites "louches", et sont généralement bannies par les moteurs de recherche. Pas top pour le référencement ! Mais ça peut dépanner, par exepmle pour déployer une version de test d'un projet perso.
+
 ## 3. Configuration du VPS
 
 ### Configuration DNS
+
+> La première étape est de configurer le domaine qu'on vient de louer. Il faut lier
+le domaine à l'hébergement.
+
+C'est là qu'intervient, en pratique, la notion de DNS vue précédemment. Pour rappel, c'est ce qui permet de faire le lien entre :
+
+* Le nom d'un serveur, comme www.google.fr, qui est lisible et compréhensible par un être humain
+* L'adresse IP du serveur, composée de 4 nombres, par exemple 216.58.209.227
+
+Associer nom de domaine à une adresse IP se fait via l'espace client de l'hébergeur. Voici une capture de mon espace client chez OVH.
+
+![Espace client OVH](https://github.com/bhubr/deploy-projects/raw/master/img/espace-client-ovh-zone-dns.png)
+
+On y trouve une liste de domaines que je loue chez eux (barre latérale, à gauche). Dans l'affichage principale, j'ai la configuration du domaine wild31.com, et particulièrement, la **Zone DNS**.
+
+Dans l'onglet "Zone DNS" montré ci-dessus, il y a une liste d'entrées, chacune ayant 4 colonnes : Domaine, TTL, Type, Cible.
+
+Ce qui nous intéresse est l'entrée dont le domaine est `wild31.com` et dont le type est `A`.
+L'adresse par défaut qui lui est associée est 213.186.33.5, qui est un serveur chez
+OVH.
+
+Je vais lui associer une autre adresse IP, qui est celle de mon serveur. Je clique donc sur l'engrenage de la ligne
+dont le type est `A` :
+
+![Modifier entrée DNS](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-modifier.png)
+
+Je choisis "Modifier l'entrée", ce qui ouvre une fenêtre "modale", avec un formulaire :
+
+![Modifier adresse IP cible](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-ip.png)
+
+Dans le formulaire, je remplace la valeur courante du champ cible par l'adresse IP de mon serveur.
+Dans mon cas, mon serveur s'est fait attribuer l'adresse 5.39.82.119, je mets donc cette valeur comme cible, puis je valide. Un dernier écran me confirme la prise en compte des modifications :
+
+![Valider modification entrée](https://github.com/bhubr/deploy-projects/raw/master/img/zone-dns-valider.png)
+
+
+[... A COMPLETER ...]
