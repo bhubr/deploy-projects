@@ -2,11 +2,15 @@
 
 Ce document résume ce qu'il faut connaître pour mettre en ligne une application web.
 
-La première partie portera sur des notions de réseau : les adresses IP et le DNS.
+La première partie porte sur des notions de réseau : les adresses IP et le DNS.
 
-La seconde partie abordera la configuration d'un serveur Linux de type VPS (*Virtual Private Server* ou serveur privé virtuel), jusqu'à l'installation du serveur web Nginx.
+La seconde partie aborde l'achat (ou plutôt la location) d'un hébergement et d'un nom de domaine.
 
-La troisième partie abordera plus spécifiquement la mise en ligne d'un projet basé sur la "stack" Node.js + React.
+La troisième partie aborde la configuration d'un serveur Linux de type VPS (*Virtual Private Server* ou serveur privé virtuel), jusqu'à l'installation du serveur web Nginx.
+
+La quatrième partie abordera plus spécifiquement la mise en ligne d'un projet basé sur la "stack" Node.js + React.
+
+Enfin, un annexe résume de façon très concise les opérations à effectuer.
 
 ## 1. Notions de réseau
 
@@ -32,7 +36,7 @@ Lorsque tu saisis une adresse de site en toutes lettres dans la barre d'adresses
 
 ![DNS](https://raw.githubusercontent.com/bhubr/deploy-projects/master/img/domain-name-system.svg)
 
-## 2. Configuration d'un VPS
+## 2. Commande d'un serveur et d'un nom de domaine
 
 ### Les différentes options d'hébergement
 
@@ -58,3 +62,33 @@ Sans vouloir spécifiquement leur faire de la pub, OVH est l'hébergeur que nous
 
 Pour quelqu'un qui souhaite se lancer à bas prix, leur gamme [Kimsufi](https://www.kimsufi.com/fr/) est suffisante, en particulier la gamme [VPS SSD](https://www.kimsufi.com/fr/vps-ssd.xml) : des serveurs pourvus, comme leur nom l'indique, de SSD au lieu de disques durs classiques.
 
+La commande se fait en quelques clics, le plus important étant la 2ème étape :
+
+* choix du datacenter où est hébergé le serveur physique
+* choix de la version de Linux (Debian, Ubuntu, CentOS, etc.)
+
+Ayant l'habitude d'utiliser Ubuntu à la Wild, tu peux choisir Ubuntu où Debian (dont Ubuntu est dérivée).
+
+Une fois la commande validée, après une attente de 15-20 minutes, tu reçois un e-mail indiquant que ton serveur est prêt. Cet email contient :
+* l'adresse IP et un nom de machine par défaut attribué par OVH (vps345678.ovh.net)
+* Le mot de passe du compte Unix `root`.
+
+Cette petite vidéo (5 min.) résume cette partie :
+
+https://youtube.com
+
+### Commande d'un nom de domaine
+
+Le choix d'un nom de domaine demande souvent un peu de réflexion. De nombreuses ressources ([exemple](https://www.ovh.com/fr/blog/10-regles-choisir-nom-de-domaine/)) donnent quelques critères objectifs pour se décider, auxquels on ne pense pas forcément au premier abord.
+
+Après avoir choisi, on peut réserver le nom de domaine pour un an (souvent renouvelé automatiquement, sauf résiliation avant la date anniversaire).
+
+Chez OVH, la commande se passe [sur cette page](https://www.ovh.com/fr/domaines/). Le Le prix dépend de l'extension choisie (`.fr`, `.net`, `.com`, etc.), et oscille autour de 8-10€ par an.
+
+Une vidéo pour cette partie :
+
+https://youtube.com
+
+## 3. Configuration du VPS
+
+### Configuration DNS
