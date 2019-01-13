@@ -522,7 +522,7 @@ idée des prix que ça peut atteindre (capture d'une page de commande de domaine
 
 ## Hébergements
 
-Pour les hébergements, il y a globalement deux possibilités : hébergement dit "partagé", ou hébergement privé
+Pour les hébergements, il y a globalement deux possibilités : hébergement dit "partagé", ou hébergement privé.
 
 ### Hébergement partagé
 
